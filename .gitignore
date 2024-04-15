@@ -1,0 +1,33 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Betriebssystemdateien
+.DS_Store
+
+# Anwendungs- oder Konfigurationsdateien
+.env
+config.js
+
+# Logdateien
+*.log
+
+# Verzeichnis für kompilierte Dateien (Beispiel: TypeScript-Dateien)
+dist/
+
+# Anwendungsabhängigkeiten (Beispiel: Bower-Komponenten)
+bower_components/
+
+# Temporäre Dateien
+*.tmp
+*.swp
+
+# Build-Verzeichnisse (Beispiel: Gulp- oder Grunt-Ausgabe)
+build/
+dist/
+out/
+
+# Dateien, die möglicherweise von Ihrer Entwicklungsumgebung generiert werden
+.idea/
+.vscode/

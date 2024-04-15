@@ -1,0 +1,12 @@
+.backgroundContainer {
+    background-image: url('../html/pics/background.jpg');
+
+    background-position: center;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.carousel {
+    margin-bottom: 0;
+}
