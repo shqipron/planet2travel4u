@@ -1,0 +1,142 @@
+@startuml
+
+package js.pattern.builder {
+
+class TableListBuilder {
+    + type: String
+    + container: String
+    + columnNames: String[*]
+    + rows: String[*]
+
+    + TableListBuilder <<constructor>>
+    + setType(type: String): this
+    + setContainer(container: String):this
+    + setColumnNames(columnNAmes: String[*]):this
+    + setRows(rows: String[*]):this
+    + build():BaseTableList
+}
+}
+
+package js.table {
+
+class BaseTableList {
+    + BaseTableList(builder: TableListBuilder) <<constructor>>
+    + buttonFactory: CreateButtonFactory
+    + cTableRows: integer
+    + cTableColumns: integer
+    + renderTableList(): void
+    - setHeader(): void
+    - setBody(): void
+    + execute(command: tableCommand, btn: HTMLButtonElement)
+}
+
+class SealedTableList extends BaseTableList {}
+
+class ExtendableTableList extends DraggableTableList {
+    + addTableButton(options): HTMLButtonElement
+}
+
+class DraggableTableList extends BaseTableList {}
+
+
+}
+
+package js.pattern.command {
+
+    abstract class CommandBase {
+        + CommandBase(eventTarget: String) <<constructor>>
+        + {abstract} execute(tableContainer: String,btn: HTMLButtonElement):void
+    }
+
+    class DeleteTableTagCommand extends CommandBase {}
+    class DeleteTBodyCommand extends CommandBase {}
+    class AddTableInfo extends CommandBase{}
+    class CRUDCommand extends CommandBase {}
+
+class EnableDragAndDrop extends CommandBase {
+    + enableDragAndDrop(rows: HTMLElement, tbody:HTMLTableSectionElement): void
+    + addPopoverTriggerEl(popoverTriggerEl: HTMLElement)
+}
+    class AddTableRowCommand extends CommandBase {
+        - setCopiedRow(table: HTMLElement):void
+    }
+
+        class HolidayDecoratorCommand extends CommandBase {
+        - setTDElements(tableContainer: HTMLElement): void
+    }
+    class createTdInputEleCommand extends CommandBase {}
+
+
+
+}
+
+
+package js.pattern.factory {
+
+    class ButtonBase {
+        + ele: HTMLButtonElement
+        + ButtonBase(type: String) <<constructor>>
+        + addIcon(btn: HTMLButtonElement, classList: String[*]): void
+    }
+
+    class DeleteButton extends ButtonBase {}
+    class AddButton extends ButtonBase {}
+    class SaveButton extends ButtonBase {}
+    class LoadButton extends ButtonBase {}
+    class InfoButton extends ButtonBase {}
+
+    class CreateButtonFactory {
+        + createButton(type: String): ButtonBase
+    }
+
+}
+
+package js.wrapper {
+
+abstract class BasicTableWrapper {
+    + wrapperName: String
+    BasicTableWrapper(tableContainer: BaseTableList)
+    + {abstract} render(): void
+}
+
+class HolidayTimesWrapper extends BasicTableWrapper {}
+class SuitcaseWrapper extends BasicTableWrapper {}
+
+}
+
+package js.service {
+    class TableCRUDService {
+        + saveToTableByName(tableName: String, table: HTMLElement): void
+        + loadTableByName(tableName: String, table:HTMLElement): void
+    }
+}
+
+package js.firebase {
+    class FirebaseDB {
+        + writeUserData(userId: int, sub: String, payload: String)
+        + getUserData(userId: int, sub: String)
+    }
+
+    class FirebaseConfig {
+        + initializeFirebase():void
+
+    }
+}
+
+FirebaseDB o---> "1" FirebaseConfig : > uses
+TableCRUDService o---> "1" FirebaseDB : > uses
+TableCRUDService ...> "1" CommandBase : > uses
+
+CommandBase ---> "1" CreateButtonFactory
+
+BaseTableList ---> "1" CreateButtonFactory
+BaseTableList ---> "*" CommandBase : > uses
+
+BasicTableWrapper ...> "*" CommandBase : > uses
+BasicTableWrapper o...> "*" BaseTableList : > uses
+
+CreateButtonFactory ...> "*" ButtonBase : > creates
+
+TableListBuilder  o...> "*" BaseTableList : > creates
+
+@enduml

@@ -1,11 +1,13 @@
-import {CreateButtonFactory} from "../factory/button.js";
+import {CreateButtonFactory} from "../factory/buttonFactory.js";
+import {isGlobalVariableInit} from "../../utils/objectUtil.js";
 
 
 class CommandBase {
     constructor(eventTarget) {
         this.eventTarget = eventTarget;
     }
-    execute() {
+
+    execute(tableContainer, btn) {
     }
 
 }
@@ -21,21 +23,21 @@ class DeleteTableTagCommand extends CommandBase {
         super(eventTarget);
     }
 
-    execute(tableContainer,btn) {
+    execute(tableContainer, btn) {
 
-        const newBtnDataAttr = setEleListenerAttribute(btn,this.eventTarget);
+        const newBtnDataAttr = setEleListenerAttribute(btn, this.eventTarget);
         const table = document.getElementById(tableContainer.container);
 
-        if (eventList.indexOf(newBtnDataAttr) === -1){
-        table.addEventListener("click", (event) => {
-            if (event.target.dataset.action === newBtnDataAttr) {
-                const target = event.target.closest(this.eventTarget) || table.querySelector(this.eventTarget);
-                if (target){
-                target.parentNode.removeChild(target);
+        if (eventList.indexOf(newBtnDataAttr) === -1) {
+            table.addEventListener("click", (event) => {
+                if (event.target.dataset.action === newBtnDataAttr) {
+                    const target = event.target.closest(this.eventTarget) || table.querySelector(this.eventTarget);
+                    if (target) {
+                        target.parentNode.removeChild(target);
+                    }
                 }
-            }
-        });
-        eventList.push(newBtnDataAttr);
+            });
+            eventList.push(newBtnDataAttr);
         }
     }
 }
@@ -45,16 +47,16 @@ class DeleteTBodyCommand extends CommandBase {
         super("tbody");
     }
 
-    execute(tableContainer,btn) {
+    execute(tableContainer, btn) {
 
-        const newBtnDataAttr = setEleListenerAttribute(btn,this.eventTarget);
+        const newBtnDataAttr = setEleListenerAttribute(btn, this.eventTarget);
         const table = document.getElementById(tableContainer.container);
 
-        if (eventList.indexOf(newBtnDataAttr) === -1){
+        if (eventList.indexOf(newBtnDataAttr) === -1) {
             table.addEventListener("click", (event) => {
                 if (event.target.dataset.action === newBtnDataAttr) {
                     const target = event.target.closest("tbody") || table.querySelector("tbody");
-                    if (target){
+                    if (target) {
                         target.innerHTML = "";
                     }
                 }
@@ -70,35 +72,36 @@ class AddTableRowCommand extends CommandBase {
         super("tbody tr");
         this.rowCopied = null;
     }
-    execute(tableContainer,btn) {
+
+    execute(tableContainer, btn) {
 
         const newBtnDataAttr = setEleListenerAttribute(btn, this.eventTarget);
         const table = document.getElementById(tableContainer.container);
 
-        if (eventList.indexOf(newBtnDataAttr) === -1){
+        if (eventList.indexOf(newBtnDataAttr) === -1) {
             this.#setCopiedRow(table);
-        table.addEventListener("click", (event) => {
-            if (event.target.dataset.action === newBtnDataAttr) {
+            table.addEventListener("click", (event) => {
+                if (event.target.dataset.action === newBtnDataAttr) {
 
-                let tblBody = table.querySelector("tbody");
-                const clonedRow = this.rowCopied.cloneNode(true);
+                    let tblBody = table.querySelector("tbody");
+                    const clonedRow = this.rowCopied.cloneNode(true);
 
-                if (!tblBody?.children) {
-                    const tbody = document.createElement("tbody");
-                    table.lastChild.appendChild(tbody);
-                    tbody.appendChild(clonedRow);
-                    enableDragAndDrop(clonedRow, tbody);
-                } else {
-                    tblBody.appendChild(clonedRow);
-                    enableDragAndDrop(clonedRow, tblBody);
-                }
+                    if (!tblBody?.children) {
+                        const tbody = document.createElement("tbody");
+                        table.lastChild.appendChild(tbody);
+                        tbody.appendChild(clonedRow);
+                        enableDragAndDrop(clonedRow, tbody);
+                    } else {
+                        tblBody.appendChild(clonedRow);
+                        enableDragAndDrop(clonedRow, tblBody);
+                    }
                     const triggerEles = Array.from(clonedRow.querySelectorAll("BUTTON"))?.filter(btn => btn?.getAttribute("data-bs-toggle") === "popover");
                     triggerEles.forEach(popoverInstance => addPopoverTriggerEl(popoverInstance));
 
 
-            }
-        });
-        eventList.push(newBtnDataAttr);
+                }
+            });
+            eventList.push(newBtnDataAttr);
         }
     };
 
@@ -110,7 +113,7 @@ class AddTableRowCommand extends CommandBase {
             const cButton = row.getElementsByTagName("BUTTON")?.length || 0;
 
             for (let i = 0; i < tdEle.length - cButton; i++) {
-                if (tdEle.firstChild){
+                if (tdEle.firstChild) {
                     tdEle[i].textContent = " ";
                 }
             }
@@ -138,11 +141,11 @@ class AddTableInfo extends CommandBase {
 
         addPopoverTriggerEl(btn.ele);
         if (eventList.indexOf(newBtnDataAttr) === -1) {
-        table.addEventListener("click", (event) => {
-            if (event.target.dataset.action !== newBtnDataAttr) {
-                window.popoverTriggerList.forEach(popInstance => popInstance.hide());
-            }
-        });
+            table.addEventListener("click", (event) => {
+                if (event.target.dataset.action !== newBtnDataAttr) {
+                    window.popoverTriggerList.forEach(popInstance => popInstance.hide());
+                }
+            });
             eventList.push(newBtnDataAttr);
         }
     }
@@ -172,7 +175,7 @@ function enableDragAndDrop(rows, tbody) {
 
     function throttle(func, limit) {
         let inThrottle;
-        return function() {
+        return function () {
             const args = arguments;
             const context = this;
             if (!inThrottle) {
@@ -220,55 +223,56 @@ function enableDragAndDrop(rows, tbody) {
             const offset = y - box.top - box.height / 2;
 
             if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child };
+                return {offset: offset, element: child};
             } else {
                 return closest;
             }
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }, {offset: Number.NEGATIVE_INFINITY}).element;
     }
 }
 
 
+function addPopoverTriggerEl(popoverTriggerEl) {
+    isGlobalVariableInit(window.bootstrap).then(_ => {
+        var popoverInstance = new bootstrap.Popover(popoverTriggerEl);
 
- function addPopoverTriggerEl(popoverTriggerEl) {
-    var popoverInstance = new bootstrap.Popover(popoverTriggerEl);
+        popoverTriggerEl.addEventListener("click", function test(event) {
+            setTimeout(() => {
+                const body = document.querySelector(".popover-body");
+                const bAttr = body.getAttribute("data-action");
 
-    popoverTriggerEl.addEventListener("click", function test(event) {
-        setTimeout(() => {
-            const body = document.querySelector(".popover-body");
-            const bAttr = body.getAttribute("data-action");
-
-            if (bAttr?.includes("active")) {
-                popoverInstance.hide();
-            } else {
-                body.setAttribute("contenteditable", "");
-                let button = buttonFactory.createButton("save");
-
-                body.parentNode.appendChild(button.ele);
-                body.style.setProperty("width","100px");
-
-                button.ele.addEventListener("click", function () {
-                    const bodyTxtContent = body.firstChild?.textContent ||  " ";
-
-                    const dataContentButton = event.target.closest("button")
-                    dataContentButton.setAttribute("data-bs-content", bodyTxtContent);
-
-                    dataContentButton.classList.toggle("btn-success", bodyTxtContent?.trim().length > 0);
-                    dataContentButton.classList.toggle("btn-secondary", !(bodyTxtContent?.trim().length > 0));
-
-
-                    let index = window.popoverTriggerList.indexOf(popoverInstance);
+                if (bAttr?.includes("active")) {
                     popoverInstance.hide();
-                    popoverInstance = new bootstrap.Popover(popoverTriggerEl);
-                    popoverTriggerList[index] = popoverInstance;
-                });
-                body.setAttribute("data-action", "active");
-            }
-            popoverInstance.update();
-        }, 0);
-    });
+                } else {
+                    body.setAttribute("contenteditable", "");
+                    let button = buttonFactory.createButton("save");
 
-    window.popoverTriggerList.push(popoverInstance)
+                    body.parentNode.appendChild(button.ele);
+                    body.style.setProperty("width", "100px");
+
+                    button.ele.addEventListener("click", function () {
+                        const bodyTxtContent = body.firstChild?.textContent || " ";
+
+                        const dataContentButton = event.target.closest("button")
+                        dataContentButton.setAttribute("data-bs-content", bodyTxtContent);
+
+                        dataContentButton.classList.toggle("btn-success", bodyTxtContent?.trim().length > 0);
+                        dataContentButton.classList.toggle("btn-secondary", !(bodyTxtContent?.trim().length > 0));
+
+
+                        let index = window.popoverTriggerList.indexOf(popoverInstance);
+                        popoverInstance.hide();
+                        popoverInstance = new bootstrap.Popover(popoverTriggerEl);
+                        popoverTriggerList[index] = popoverInstance;
+                    });
+                    body.setAttribute("data-action", "active");
+                }
+                popoverInstance.update();
+            }, 0);
+        });
+
+        window.popoverTriggerList.push(popoverInstance)
+    })
 }
 
 class CRUDCommand extends CommandBase {
@@ -285,7 +289,7 @@ class CRUDCommand extends CommandBase {
         if (eventList.indexOf(newBtnDataAttr) === -1) {
             table.addEventListener("click", (e) => {
                 if (e.target.dataset.action === newBtnDataAttr) {
-                    this.callback(this.eventTarget,table);
+                    this.callback(this.eventTarget, table);
                 }
             })
             eventList.push(newBtnDataAttr);
@@ -296,7 +300,7 @@ class CRUDCommand extends CommandBase {
 }
 
 
-function setEleListenerAttribute(btn,eventTarget){
+function setEleListenerAttribute(btn, eventTarget) {
     const newBtnDataAttr = btn.type + " " + eventTarget;
     btn.ele.setAttribute("data-action", newBtnDataAttr);
     btn.ele.querySelector("i")?.setAttribute("data-action", newBtnDataAttr);
@@ -304,4 +308,13 @@ function setEleListenerAttribute(btn,eventTarget){
 }
 
 
-export {DeleteTableTagCommand, AddTableRowCommand, AddTableInfo, EnableDragAndDrop, CommandBase, CRUDCommand, DeleteTBodyCommand, addPopoverTriggerEl}
+export {
+    DeleteTableTagCommand,
+    AddTableRowCommand,
+    AddTableInfo,
+    EnableDragAndDrop,
+    CommandBase,
+    CRUDCommand,
+    DeleteTBodyCommand,
+    addPopoverTriggerEl
+}

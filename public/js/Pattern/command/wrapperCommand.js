@@ -58,8 +58,12 @@ class HolidayDecoratorCommand extends CommandBase {
                 trElement.querySelectorAll("td").forEach((tdElement, columnIndex) => {
                     if (columnIndex > 0){
                     if (tdElement.tagName === "TD" && tdElement.querySelector("button") === null) {
+                        tdElement.style.setProperty("width", "100%");
+                        tdElement.style.setProperty("min-width", "17px");
+                        tdElement.style.setProperty("max-width", "25px");
                         tdElement.style.setProperty("width", "25px");
-                        tdElement.style.setProperty("min-width", "25px");
+
+
                         tdElement.style.setProperty("height", "30px");
 
                         tdElement.setAttribute("data-value-db", "0");
@@ -69,7 +73,7 @@ class HolidayDecoratorCommand extends CommandBase {
                         tdElement.style.textAlign = "center";
                     }
                     }else{
-                        tdElement.style.setProperty("width","100%");
+                        tdElement.style.setProperty("width","50%");
                     }
                 });
             }

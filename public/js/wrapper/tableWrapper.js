@@ -1,14 +1,15 @@
 import {HolidayDecoratorCommand, createTdInputEleCommand} from "../Pattern/command/wrapperCommand.js";
-import {CommandBase} from "../Pattern/command/tableCommand.js";
 
-class BasicTableDecorator {
+class BasicTableWrapper {
     constructor(tableContainer) {
         this.tableContainer = tableContainer;
         this.wrapperName = "";
     }
+
+    render() {}
 }
 
-class HolidayTimesWrapper extends BasicTableDecorator {
+class HolidayTimesWrapper extends BasicTableWrapper {
     constructor(table) {
         super(table);
         this.wrapperName = "holidaytimes"
@@ -23,7 +24,7 @@ class HolidayTimesWrapper extends BasicTableDecorator {
 
 }
 
-class SuitcaseWrapper extends BasicTableDecorator {
+class SuitcaseWrapper extends BasicTableWrapper {
 
     constructor(table) {
         super(table);
@@ -39,8 +40,9 @@ class SuitcaseWrapper extends BasicTableDecorator {
                 trElement.children[0].style.setProperty("width","100%");
 
                 let tdInputEleChkBox = new createTdInputEleCommand("td");
-                let tdElementChkBox = trElement.children[2]
-                tdElementChkBox.removeAttribute("contenteditable")
+                let tdElementChkBox = trElement.children[2];
+                tdElementChkBox.removeAttribute("contenteditable");
+
 
                 tdInputEleChkBox.execute(this.tableContainer,tdElementChkBox,"checkbox", function (e)  {
 
@@ -50,6 +52,11 @@ class SuitcaseWrapper extends BasicTableDecorator {
                             e.target.toggleAttribute("checked");
                     }
                 })
+
+                tdElementChkBox.style.textAlign = "center";
+
+                tdElementChkBox.children[0].style.height = "25px";
+                tdElementChkBox.children[0].style.width = "25px";
 
                 let tdInputEleNumber = new createTdInputEleCommand("td");
                 let tdElementNumber = trElement.children[1];
@@ -62,6 +69,11 @@ class SuitcaseWrapper extends BasicTableDecorator {
                             e.target.setAttribute("value", e.target.value)
                     }
                 })
+
+                tdElementNumber.style.setProperty("max-width","100px");
+                tdElementNumber.style.setProperty("padding-right","105px");
+
+                tdElementNumber.children[0].style.maxWidth = "inherit";
             }
         });
     }

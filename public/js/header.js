@@ -6,7 +6,7 @@ class Header extends HTMLElement {
         super();
     }
 
-    connectedCallback() {
+    async connectedCallback() {
         this.innerHTML = `
 
             <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModal" aria-hidden="true">
@@ -57,12 +57,10 @@ class Header extends HTMLElement {
                   </button>
                 </div>
               </div>
-            </header>
-
-
+            </header>        
         `;
-        initializeUI();
 
+        await initializeUI();
     }
 }
 

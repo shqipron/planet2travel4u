@@ -1,4 +1,10 @@
 {
+    "name": "plan2travel4u",
+    "version": "1.0.0",
+    "main": "travel/app/server.cjs",
+    "scripts": {
+        "start": "node app/server.cjs"
+    },
     "type": "module",
     "dependencies": {
         "bootstrap": "^5.3.3",
