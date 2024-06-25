@@ -4,8 +4,6 @@
     "main": "travel/app/server.cjs",
     "scripts": {
         "start": "node app/server.cjs"
-		"build": "npm run generate-html && vite build",
-		"generate-html": "mkdir -p dist && cp index.html dist/"
     },
     "type": "module",
     "dependencies": {
