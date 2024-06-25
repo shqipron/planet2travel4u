@@ -7,6 +7,8 @@ const cookieParser = require('cookie-parser');
 const statusMonitor = require('express-status-monitor');
 const firebaseAdmin = require('firebase-admin');
 
+const port = process.env.PORT || 4000;
+
 const {initializeApp, applicationDefault} = require('firebase-admin/app');
 
 app.use(cookieParser());
@@ -100,4 +102,4 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(PORT, '0.0.0.0', () => console.log(`The server is running at ${PORT}`));
+app.listen(port, () => console.log(`The server is running at ${PORT}`));
