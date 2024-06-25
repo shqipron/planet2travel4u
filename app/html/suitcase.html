@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="../../public/css/carousel.css" rel="stylesheet">
+    <link href="../../public/css/features.css" rel="stylesheet">
+    <link href="../../public/css/background.css" rel="stylesheet">
+    <title>Suitcase packing</title>
+</head>
+<body>
+
+<header-component></header-component>
+
+
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+<!--        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>-->
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="text-center">
+                <img class="rounded mx-auto d-block img-fluid carousel-item-img-center featurette-img rounded-circle" src="../../public/html/pics/site-description/koffer2.jpg" alt="globus">
+            </div>
+            <div class="container">
+                <div class="carousel-caption text-start">
+                    <h1>I'm packing my bags</h1>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="text-center">
+                <img class="rounded mx-auto d-block img-fluid carousel-item-img-center featurette-img rounded-circle" src="../../public/html/pics/site-description/suitcase_overview.png" alt="globus">
+            </div>
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Pack your suitcase.</h1>
+                    <p>Because well packed is half the battle</p>
+<!--                    <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>-->
+                </div>
+            </div>
+        </div>
+<!--        <div class="carousel-item">-->
+<!--            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>-->
+
+<!--            <div class="container">-->
+<!--                <div class="carousel-caption text-end">-->
+<!--                    <h1>One more for good measure.</h1>-->
+<!--                    <p>Some representative placeholder content for the third slide of this carousel.</p>-->
+<!--                    <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="backgroundContainer">
+
+
+    <div class="container px-4 py-5" id="icon-grid">
+        <h2 class="pb-2 border-bottom">What to expect</h2>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5 justify-content-center">
+            <div class="col d-flex align-items-start">
+
+                <i class="fa-solid fa-cloud-arrow-up bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em" style="font-size: 50px"></i>
+                <div>
+                    <h4 class="fw-bold mb-0">save and load</h4>
+                    <p>Log in and benefit from the possibility to save your travel plans!</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <i class="fa-solid fa-suitcase bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em" style="font-size: 50px"></i>
+                <div>
+                    <h4 class="fw-bold mb-0">pack your suitcase</h4>
+                    <p>make a list of all your favorite things that belong in your suitcase!</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <i class="fa-solid fa-list-check bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em" style="font-size: 50px"></i>
+                <div>
+                    <h4 class="fw-bold mb-0">table features</h4>
+                    <p>add items, count them and check if they are already packed and if you need more info, just add them as a note</p>
+                </div>
+            </div>
+<!--            <div class="col d-flex align-items-start">-->
+<!--                <i class="fa-solid fa-list-check bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em" style="font-size: 50px"></i>-->
+<!--                <div>-->
+<!--                    <h4 class="fw-bold mb-0">Featured title</h4>-->
+<!--                    <p>Paragraph of text beneath the heading to explain the heading.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+    <div id="list-container" style="max-width: 700px; margin:0 auto; background-color: white"></div>
+
+<footer-component></footer-component>
+</div>
+
+
+<script type="module" src="../../public/js/headerConfig.js"></script>
+<!--<script type="module" defer src="../../public/js/header.js"></script>-->
+<!--<script type="module" defer src="../../public/js/footer.js"></script>-->
+<script defer type="module">
+    import {TableListBuilder} from "../../public/js/Pattern/builder/tableBuilder.js";
+    import {
+        DeleteTableTagCommand,
+        AddTableRowCommand,
+        AddTableInfo,
+        CRUDCommand, DeleteTBodyCommand
+    } from "../../public/js/Pattern/command/tableCommand.js";
+    import {SuitcaseWrapper} from "../../public/js/wrapper/tableWrapper.js";
+    import {loadTableByName, saveToTableByName} from "../../public/js/service/tableCRUDService.js";
+
+
+
+    const colHeader = ["Name", "Count", "Checked"];
+    const tableListBuilder = new TableListBuilder()
+        .setType("extendable")
+        .setContainer("list-container")
+        .setColumnNames(colHeader)
+        .setRows([[]]);
+
+    //const draggableTableList = tableListBuilder.build();
+
+    const extendableTableList = tableListBuilder.build();
+    const suitcaseWrapper = new SuitcaseWrapper(extendableTableList);
+    suitcaseWrapper.render();
+
+
+    const deleteTrCommand = new DeleteTableTagCommand("tr");
+
+    extendableTableList.addTableButton({bType: "delete", command: deleteTrCommand, position: "top", single: false});
+    extendableTableList.addTableButton({
+        bType: "delete",
+        command: new DeleteTBodyCommand(),
+        position: "bottom",
+        single: false
+    });
+    extendableTableList.addTableButton({bType: "info", command: new AddTableInfo(), position: "top", single: true});
+    extendableTableList.addTableButton({bType: "info", command: new AddTableInfo(), position: "top", single: false});
+
+    extendableTableList.addTableButton({
+        bType: "add",
+        command: new AddTableRowCommand(),
+        position: "top",
+        single: true
+    });
+
+    extendableTableList.addTableButton({bType: "save", command: new CRUDCommand("suitcase",saveToTableByName)
+        , position: "bottom", single: true, id: "loadDBTable"});
+
+    extendableTableList.addTableButton({bType: "load", command: new CRUDCommand("suitcase",loadTableByName), position: "bottom", single: true, id: "saveDBTable"});
+
+
+</script>
+</body>
+</html>
